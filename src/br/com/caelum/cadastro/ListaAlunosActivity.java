@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -31,8 +32,17 @@ public class ListaAlunosActivity extends Activity{
 			public void onItemClick(AdapterView<?> adapter, View view,
 					int posicao, long id) {
 
-				Toast.makeText(ListaAlunosActivity.this, "A  posição é" + posicao, Toast.LENGTH_SHORT).show();
+				Toast.makeText(ListaAlunosActivity.this, "A  posição é " + posicao, Toast.LENGTH_SHORT).show();
 				
+			}
+		});
+		
+		lista.setOnItemLongClickListener(new OnItemLongClickListener() {
+
+			@Override
+			public boolean onItemLongClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				return false;
 			}
 		});
 	}
