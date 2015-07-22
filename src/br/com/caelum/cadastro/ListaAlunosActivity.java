@@ -18,9 +18,9 @@ public class ListaAlunosActivity extends Activity{
 		
 		setContentView(R.layout.listagem);
 		
-		ListView lista = (ListView)findViewById(R.id.lista);
+		final ListView lista = (ListView)findViewById(R.id.lista);
 		
-		String[] alunos = {"Suelen","Guilherme","Mauricio"};
+		final String[] alunos = {"Suelen","Guilherme","Mauricio"};
 		
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, alunos);
 		
@@ -42,6 +42,11 @@ public class ListaAlunosActivity extends Activity{
 			@Override
 			public boolean onItemLongClick(AdapterView<?> parent, View view,
 					int position, long id) {
+				
+				Toast.makeText(
+						ListaAlunosActivity.this,
+						"Aluno clicado é: " + lista.getItemAtPosition(position), Toast.LENGTH_SHORT).show();
+				
 				return false;
 			}
 		});
