@@ -17,12 +17,12 @@ public class FormularioHelper {
 
 	public FormularioHelper(FormularioActivity formularioActivity) {
 
-		foto = (ImageView) formularioActivity.findViewById(R.id.foto);
 		nome = (EditText) formularioActivity.findViewById(R.id.nome);
 		telefone = (EditText) formularioActivity.findViewById(R.id.telefone);
 		endereco = (EditText) formularioActivity.findViewById(R.id.endereco);
 		site = (EditText) formularioActivity.findViewById(R.id.site);
 		nota = (SeekBar) formularioActivity.findViewById(R.id.nota);
+		foto = (ImageView) formularioActivity.findViewById(R.id.foto);
 
 		aluno = new Aluno();
 	}

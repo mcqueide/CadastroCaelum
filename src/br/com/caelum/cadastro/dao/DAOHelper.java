@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DAOHelper extends SQLiteOpenHelper{
 
-	private static final int VERSAO = 1;
+	private static final int VERSAO = 4;
 	private static final String DATABASE = "CadastroCaelum";
 
 	public DAOHelper(Context context) {
@@ -15,7 +15,7 @@ public class DAOHelper extends SQLiteOpenHelper{
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		String tabelaAlunos = "CREATE TABLE alunos (id INTEGER PRIMARY KEY, "
+		String tabelaAlunos = "CREATE TABLE Alunos (id INTEGER PRIMARY KEY, "
 				+ "nome TEXT UNIQUE NOT NULL, "
 				+ "telefone TEXT, endereco TEXT, "
 				+ "site TEXT, nota REAL, "

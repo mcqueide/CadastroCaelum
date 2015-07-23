@@ -22,6 +22,7 @@ public class FormularioActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.formulario);
 		
+		dao = new DAOHelper(FormularioActivity.this);
 		this.helper = new FormularioHelper(this);
 		
 		Button botao = (Button)findViewById(R.id.botao);
@@ -29,11 +30,13 @@ public class FormularioActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
+				
 				Aluno aluno = helper.pegaAlunoDoFormulario();
-				dao = new DAOHelper(FormularioActivity.this);
+				
 				alunoDAO = new AlunoDAO(dao);
+				
 				alunoDAO.insere(aluno);
-				Toast.makeText(FormularioActivity.this,"Objeto aluno criado" + aluno.getNome(), Toast.LENGTH_SHORT).show();
+				Toast.makeText(FormularioActivity.this,"Objeto aluno criado " + aluno.getNome(), Toast.LENGTH_SHORT).show();
 				finish();
 			}
 		});
