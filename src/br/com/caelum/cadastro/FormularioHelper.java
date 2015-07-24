@@ -1,5 +1,7 @@
 package br.com.caelum.cadastro;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -28,6 +30,7 @@ public class FormularioHelper {
 	}
 
 	public Aluno pegaAlunoDoFormulario() {
+		
 		aluno.setNome(nome.getEditableText().toString());
 		aluno.setTelefone(telefone.getEditableText().toString());
 		aluno.setEndereco(endereco.getEditableText().toString());
@@ -37,6 +40,7 @@ public class FormularioHelper {
 	}
 
 	public void colocaNoFormulario(Aluno aluno) {
+		
 		nome.setText(aluno.getNome());
 		telefone.setText(aluno.getTelefone());
 		endereco.setText(aluno.getEndereco());
@@ -44,6 +48,24 @@ public class FormularioHelper {
 		nota.setProgress(aluno.getNota().intValue());
 		
 		this.aluno = aluno;
+		
+		if (aluno.getCaminhoFoto()!=null) {
+			carregaImagem(aluno.getCaminhoFoto());
+		}
+	}
+	
+	public ImageView getFoto() {
+		return foto;
+	}
+
+	public void carregaImagem(String caminhoArquivo) {
+		aluno.setCaminhoFoto(caminhoArquivo);
+		
+		Bitmap imagemFoto = BitmapFactory.decodeFile(caminhoArquivo);
+		Bitmap imagemFotoReduzida = Bitmap.createScaledBitmap(imagemFoto, 100, 100, true);
+		
+		foto.setImageBitmap(imagemFotoReduzida);
+		
 	}
 
 }
