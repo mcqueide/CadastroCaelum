@@ -5,9 +5,12 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -17,6 +20,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 import br.com.caelum.cadastro.dao.AlunoDAO;
 import br.com.caelum.cadastro.dao.DAOHelper;
+import br.com.caelum.cadastro.extra.Extra;
 import br.com.caelum.cadastro.modelo.Aluno;
 
 public class ListaAlunosActivity extends Activity {
@@ -24,6 +28,7 @@ public class ListaAlunosActivity extends Activity {
 	private DAOHelper dao;
 	private AlunoDAO alunoDAO;
 	private ListView lista;
+	private Aluno alunoSelecionado;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +37,7 @@ public class ListaAlunosActivity extends Activity {
 		setContentView(R.layout.listagem);
 
 		lista = (ListView) findViewById(R.id.lista);
+		registerForContextMenu(lista);
 
 		dao = new DAOHelper(this);
 		alunoDAO = new AlunoDAO(dao);
@@ -41,27 +47,27 @@ public class ListaAlunosActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> adapter, View view,
 					int posicao, long id) {
-
-				Toast.makeText(ListaAlunosActivity.this,
-						"A  posição é " + posicao, Toast.LENGTH_SHORT).show();
-
+				
+				alunoSelecionado = (Aluno) adapter.getItemAtPosition(posicao);
+				Intent edicao = new Intent(ListaAlunosActivity.this, FormularioActivity.class);
+				edicao.putExtra(Extra.ALUNO_SELECIONADO, alunoSelecionado);
+				
+				startActivity(edicao);
 			}
 		});
 
 		lista.setOnItemLongClickListener(new OnItemLongClickListener() {
 
 			@Override
-			public boolean onItemLongClick(AdapterView<?> parent, View view,
+			public boolean onItemLongClick(AdapterView<?> adapter, View view,
 					int position, long id) {
 
-				Toast.makeText(
-						ListaAlunosActivity.this,
-						"Aluno clicado é: " + lista.getItemAtPosition(position),
-						Toast.LENGTH_SHORT).show();
-
-				return true;
+				alunoSelecionado = (Aluno) adapter.getItemAtPosition(position);
+				
+				return false;
 			}
 		});
+		
 	}
 
 	@Override
@@ -107,6 +113,29 @@ public class ListaAlunosActivity extends Activity {
 	protected void onDestroy() {
 		super.onDestroy();
 		dao.close();
+	}
+	
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v,
+			ContextMenuInfo menuInfo) {
+		super.onCreateContextMenu(menu, v, menuInfo);
+		
+		MenuItem ligar = menu.add("Ligar");
+		MenuItem enviar = menu.add("Enviar SMS");
+		MenuItem mapa = menu.add("Achar no Mapa");
+		MenuItem site = menu.add("Navegar no site");
+		MenuItem deletar = menu.add("Deletar");
+		deletar.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+			
+			@Override
+			public boolean onMenuItemClick(MenuItem item) {
+				alunoDAO.deletar(alunoSelecionado);
+				carregaLista();
+				return false;
+			}
+		});
+		
+		MenuItem email = menu.add("Enviar E-mail");
 	}
 
 }

@@ -32,8 +32,18 @@ public class FormularioHelper {
 		aluno.setTelefone(telefone.getEditableText().toString());
 		aluno.setEndereco(endereco.getEditableText().toString());
 		aluno.setSite(site.getEditableText().toString());
-		aluno.setNota(nota.getProgress());
+		aluno.setNota(Double.valueOf(nota.getProgress()));
 		return aluno;
+	}
+
+	public void colocaNoFormulario(Aluno aluno) {
+		nome.setText(aluno.getNome());
+		telefone.setText(aluno.getTelefone());
+		endereco.setText(aluno.getEndereco());
+		site.setText(aluno.getSite());
+		nota.setProgress(aluno.getNota().intValue());
+		
+		this.aluno = aluno;
 	}
 
 }

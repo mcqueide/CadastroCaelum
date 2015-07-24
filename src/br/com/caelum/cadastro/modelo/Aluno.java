@@ -1,6 +1,8 @@
 package br.com.caelum.cadastro.modelo;
 
-public class Aluno {
+import java.io.Serializable;
+
+public class Aluno implements Serializable{
 
 	private Long id;
 	private String nome;
@@ -8,7 +10,7 @@ public class Aluno {
 	private String endereco;
 	private String site;
 	private String caminhoFoto;
-	private double nota;
+	private Double nota;
 	
 	public Long getId() {
 		return id;
@@ -46,10 +48,10 @@ public class Aluno {
 	public void setCaminhoFoto(String caminhoFoto) {
 		this.caminhoFoto = caminhoFoto;
 	}
-	public double getNota() {
+	public Double getNota() {
 		return nota;
 	}
-	public void setNota(double nota) {
+	public void setNota(Double nota) {
 		this.nota = nota;
 	}
 	

@@ -21,6 +21,11 @@ public class AlunoDAO {
 
 		helper.getWritableDatabase().insert(TABELA, null, cv);
 	}
+	
+	public void deletar(Aluno aluno) {
+		String args[] = {aluno.getId().toString()};
+		helper.getWritableDatabase().delete(TABELA, "id=?",args);
+	}
 
 	private ContentValues toValues(Aluno aluno) {
 		ContentValues cv = new ContentValues();
@@ -60,6 +65,13 @@ public class AlunoDAO {
 		cursor.close();
 
 		return alunos;
+	}
+
+	public void alterar(Aluno aluno) {
+		ContentValues cv = toValues(aluno);
+
+		String[] args = {aluno.getId().toString()};
+		helper.getWritableDatabase().update(TABELA, cv, "id=?", args);
 	}
 	
 }
