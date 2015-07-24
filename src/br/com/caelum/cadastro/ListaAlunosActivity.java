@@ -4,6 +4,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -121,11 +122,19 @@ public class ListaAlunosActivity extends Activity {
 		super.onCreateContextMenu(menu, v, menuInfo);
 		
 		MenuItem ligar = menu.add("Ligar");
-		//Intent intentLigar = new Intent(
-		
+		executarMenu(ligar, new Intent(Intent.ACTION_CALL), Uri.parse("tel:"+alunoSelecionado.getTelefone()));
+			
+			
 		MenuItem enviar = menu.add("Enviar SMS");
+		executarMenu(enviar, new Intent(Intent.ACTION_VIEW), Uri.parse("sms:"+alunoSelecionado.getTelefone()));
+		
 		MenuItem mapa = menu.add("Achar no Mapa");
+		executarMenu(mapa, new Intent(Intent.ACTION_VIEW), Uri.parse("geo:0,0?z=14&q=" + alunoSelecionado.getEndereco()));
+		
 		MenuItem site = menu.add("Navegar no site");
+		String http = alunoSelecionado.getSite().startsWith("http://") ? "" : "http://";
+		executarMenu(site, new Intent(Intent.ACTION_VIEW), Uri.parse(http+alunoSelecionado.getSite()));
+		
 		
 		MenuItem deletar = menu.add("Deletar");
 		deletar.setOnMenuItemClickListener(new OnMenuItemClickListener() {
@@ -139,6 +148,17 @@ public class ListaAlunosActivity extends Activity {
 		});
 		
 		MenuItem email = menu.add("Enviar E-mail");
+		Intent intentEmail = new Intent(Intent.ACTION_SEND);
+		intentEmail.setType("message/rtc822");
+	    intentEmail.putExtra(Intent.EXTRA_EMAIL, new String[] {"mcqueide@gmail.com"});
+	    intentEmail.putExtra(Intent.EXTRA_SUBJECT, "Testando subject do email");
+	    intentEmail.putExtra(Intent.EXTRA_TEXT, "Testando corpo do email");
+	    email.setIntent(intentEmail);
+	}
+	
+	private void executarMenu(MenuItem menu,Intent intent,Uri parse){
+		intent.setData(parse);
+		menu.setIntent(intent);
 	}
 
 }
