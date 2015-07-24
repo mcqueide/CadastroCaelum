@@ -121,9 +121,12 @@ public class ListaAlunosActivity extends Activity {
 		super.onCreateContextMenu(menu, v, menuInfo);
 		
 		MenuItem ligar = menu.add("Ligar");
+		//Intent intentLigar = new Intent(
+		
 		MenuItem enviar = menu.add("Enviar SMS");
 		MenuItem mapa = menu.add("Achar no Mapa");
 		MenuItem site = menu.add("Navegar no site");
+		
 		MenuItem deletar = menu.add("Deletar");
 		deletar.setOnMenuItemClickListener(new OnMenuItemClickListener() {
 			
