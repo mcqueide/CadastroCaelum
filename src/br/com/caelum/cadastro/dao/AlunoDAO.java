@@ -74,4 +74,15 @@ public class AlunoDAO {
 		helper.getWritableDatabase().update(TABELA, cv, "id=?", args);
 	}
 	
+	public boolean isAluno(String telefone) {
+
+	    Cursor rawQuery = helper.getReadableDatabase().rawQuery("SELECT telefone from " + TABELA
+	            + " WHERE telefone = ?", new String[]{telefone});
+
+	    int total = rawQuery.getCount();
+	    rawQuery.close();
+
+	    return total > 0;
+	}
+	
 }
