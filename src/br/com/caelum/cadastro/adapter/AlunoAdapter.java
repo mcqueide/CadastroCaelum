@@ -50,6 +50,14 @@ public class AlunoAdapter extends BaseAdapter {
 		TextView nome = (TextView) linha.findViewById(R.id.nome);
 		nome.setText(aluno.getNome());
 
+		TextView telefone = (TextView) linha.findViewById(R.id.telefone);
+		TextView site = (TextView) linha.findViewById(R.id.site);
+
+		if (telefone != null || site != null) {
+			telefone.setText(aluno.getTelefone());
+			site.setText(aluno.getSite());
+		}
+		
 		Bitmap bm;
 
 		if (aluno.getCaminhoFoto() != null) {
@@ -60,13 +68,13 @@ public class AlunoAdapter extends BaseAdapter {
 		}
 
 		bm = Bitmap.createScaledBitmap(bm, 100, 100, true);
-		
-		ImageView foto = (ImageView)linha.findViewById(R.id.foto);
+
+		ImageView foto = (ImageView) linha.findViewById(R.id.foto);
 		foto.setImageBitmap(bm);
-		
+
 		if (position % 2 == 0) {
-		    linha.setBackgroundColor(activity.getResources().
-		        getColor(R.color.linha_par));
+			linha.setBackgroundColor(activity.getResources().getColor(
+					R.color.linha_par));
 		}
 
 		return linha;
