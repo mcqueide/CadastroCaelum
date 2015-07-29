@@ -6,7 +6,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.SyncStateContract.Helpers;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -18,14 +17,12 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
-import android.widget.Toast;
 import br.com.caelum.cadastro.adapter.AlunoAdapter;
 import br.com.caelum.cadastro.dao.AlunoDAO;
 import br.com.caelum.cadastro.dao.DAOHelper;
 import br.com.caelum.cadastro.extra.Extra;
 import br.com.caelum.cadastro.modelo.Aluno;
-import br.com.caelum.converter.AlunoConverter;
-import br.com.caelum.support.WebClient;
+import br.com.caelum.task.EnviaContatosTask;
 
 public class ListaAlunosActivity extends Activity {
 
@@ -93,17 +90,9 @@ public class ListaAlunosActivity extends Activity {
 			return false;
 			
 		case R.id.menu_enviar_alunos: {
-			DAOHelper helper = new DAOHelper(this);
-			AlunoDAO alunoDAO = new AlunoDAO(helper);
-
-			List<Aluno> alunos = alunoDAO.getAlunos();
-			
-            String json = new AlunoConverter().toJSON(alunos);
-
-            WebClient client = new WebClient("http://www.caelum.com.br/mobile");
-
-            String resposta = client.post(json);
-            Toast.makeText(this, resposta, Toast.LENGTH_LONG).show();
+			new EnviaContatosTask(this).execute();
+			return false;
+            
         }
 
 		default:
