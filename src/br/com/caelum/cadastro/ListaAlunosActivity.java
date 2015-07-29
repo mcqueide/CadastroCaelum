@@ -89,11 +89,14 @@ public class ListaAlunosActivity extends Activity {
 			startActivity(irParaFormulario);
 			return false;
 			
-		case R.id.menu_enviar_alunos: {
+		case R.id.menu_enviar_alunos:
 			new EnviaContatosTask(this).execute();
 			return false;
             
-        }
+		case R.id.menu_receber_provas:
+			Intent irParaProvas = new Intent(this,ProvasActivity.class);
+			startActivity(irParaProvas);
+			return false;
 
 		default:
 			return super.onOptionsItemSelected(item);
