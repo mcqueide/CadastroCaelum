@@ -88,6 +88,10 @@ public class ListaAlunosActivity extends Activity {
 			Intent irParaFormulario = new Intent(this, FormularioActivity.class);
 			startActivity(irParaFormulario);
 			return false;
+		
+		case R.id.menu_mapa:
+			startActivity(new Intent(this,MostraAlunosProximosActivity.class));
+			return false;
 			
 		case R.id.menu_enviar_alunos:
 			new EnviaContatosTask(this).execute();
